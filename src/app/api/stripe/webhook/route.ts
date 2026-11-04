@@ -26,7 +26,12 @@ export async function POST(req: Request) {
     return new Response("Signature invalide", { status: 400 });
   }
 
-  const db = clientAdmin();
+  let db: ReturnType<typeof clientAdmin>;
+  try {
+    db = clientAdmin();
+  } catch (e) {
+    return new Response(`Erreur de configuration : ${e instanceof Error ? e.message : "inconnue"}`, { status: 500 });
+  }
 
   // Déjà traité ? (Stripe peut renvoyer le même événement plusieurs fois)
   const { data: deja } = await db.from("stripe_events").select("id").eq("id", event.id).maybeSingle();
@@ -94,8 +99,10 @@ export async function POST(req: Request) {
     }
   } catch (e) {
     console.error("Webhook Stripe", event.type, e);
-    // 500 : Stripe réessaiera automatiquement
-    return new Response("Erreur de traitement", { status: 500 });
+    // 500 : Stripe réessaiera automatiquement. Le détail n'est visible que dans le tableau de bord Stripe
+    // (la signature a déjà été vérifiée : seul Stripe arrive jusqu'ici).
+    const detail = e instanceof Error ? e.message : typeof e === "object" && e && "message" in e ? String((e as { message: unknown }).message) : "inconnue";
+    return new Response(`Erreur de traitement : ${detail}`, { status: 500 });
   }
 
   await db.from("stripe_events").insert({ id: event.id, type: event.type });
