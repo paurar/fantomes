@@ -6,7 +6,7 @@ import { PiedDePage } from "@/components/PiedDePage";
 const exemple = [
   { nom: "Essai gratuit oublié", mensuel: 9.99 },
   { nom: "Option « cloud » jamais utilisée", mensuel: 2.99 },
-  { nom: "2ᵉ plateforme vidéo", mensuel: 13.49 },
+  { nom: "Deuxième plateforme vidéo", mensuel: 13.49 },
 ];
 
 const euros = (n: number) =>
