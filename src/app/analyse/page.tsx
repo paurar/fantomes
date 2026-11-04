@@ -1,16 +1,12 @@
 import type { Metadata } from "next";
-import { PageSimple, RetourAccueil } from "@/components/PageSimple";
+import { Analyse } from "./Analyse";
 
-export const metadata: Metadata = { title: "Analyse de ton relevé", robots: { index: false } };
+export const metadata: Metadata = {
+  title: "Analyse de ton relevé",
+  description: "Dépose ton relevé : Fantômes repère tes prélèvements réguliers, directement sur ton appareil.",
+  robots: { index: false },
+};
 
-export default function Analyse() {
-  return (
-    <PageSimple titre="L’analyse de ton relevé arrive très bientôt.">
-      <p>
-        Tu pourras y déposer ton relevé bancaire : Fantômes trouvera tes vrais prélèvements récurrents,
-        directement sur ton appareil. Ton relevé ne quittera jamais ton téléphone.
-      </p>
-      <RetourAccueil />
-    </PageSimple>
-  );
+export default function PageAnalyse() {
+  return <Analyse />;
 }
