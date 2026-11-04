@@ -1,16 +1,11 @@
 import type { Metadata } from "next";
-import { PageSimple, RetourAccueil } from "@/components/PageSimple";
+import { Questions } from "./Questions";
 
-export const metadata: Metadata = { title: "Commencer" };
+export const metadata: Metadata = {
+  title: "3 questions pour chiffrer tes fantômes",
+  description: "Une minute, sans carte bancaire : estime ce que te coûtent les abonnements que tu as oubliés.",
+};
 
 export default function Commencer() {
-  return (
-    <PageSimple titre="Le test arrive très bientôt.">
-      <p>
-        Les 3 questions qui chiffrent tes abonnements fantômes sont en cours de finition.
-        Reviens dans quelques jours : ce sera gratuit, et ça prendra une minute.
-      </p>
-      <RetourAccueil />
-    </PageSimple>
-  );
+  return <Questions />;
 }
