@@ -6,7 +6,7 @@ import { Fantome } from "@/components/Fantome";
 import { detecter, LIBELLE_FREQUENCE, type FantomeDetecte, type Operation } from "@/lib/detection";
 import { lireFichier } from "@/lib/lecture";
 import { operationsExemple } from "@/lib/exemple";
-import { genererLettre, type InfosLettre } from "@/lib/lettre";
+import { Lettre } from "@/components/Lettre";
 
 type Etat =
   | { etape: "depot"; erreur?: string }
@@ -228,68 +228,6 @@ function LigneFantome({ f, rang }: { f: FantomeDetecte; rang: number }) {
         <p className="chiffres font-titre text-2xl font-extrabold text-vermillon">{euros(f.coutAnnuel, false)}</p>
         <p className="text-xs text-encre-douce">par an</p>
       </div>
-    </div>
-  );
-}
-
-function Lettre({ service }: { service: string }) {
-  const [ouverte, setOuverte] = useState(false);
-  const [infos, setInfos] = useState<InfosLettre>({ nom: "", adresse: "", ville: "", reference: "" });
-  const [copie, setCopie] = useState(false);
-  const texte = genererLettre(service, infos);
-
-  async function copier() {
-    try {
-      await navigator.clipboard.writeText(texte);
-      setCopie(true);
-      setTimeout(() => setCopie(false), 2500);
-    } catch {
-      setCopie(false);
-    }
-  }
-
-  if (!ouverte) {
-    return (
-      <button
-        type="button"
-        onClick={() => setOuverte(true)}
-        className="mt-5 flex min-h-14 w-full items-center justify-center rounded-2xl bg-billet px-6 text-lg font-bold text-papier"
-      >
-        Préparer ma lettre
-      </button>
-    );
-  }
-
-  const champ = "mt-1 w-full rounded-xl border-2 border-encre/15 bg-white px-3 py-3 text-base focus:border-billet focus:outline-none";
-  return (
-    <div className="mt-5 border-t border-encre/10 pt-5">
-      <p className="font-bold">Ta lettre pour {service}</p>
-      <div className="mt-3 grid gap-3">
-        <label className="text-sm font-bold">Prénom et nom
-          <input className={champ} autoComplete="name" value={infos.nom} onChange={(e) => setInfos({ ...infos, nom: e.target.value })} />
-        </label>
-        <label className="text-sm font-bold">Adresse
-          <input className={champ} autoComplete="street-address" value={infos.adresse} onChange={(e) => setInfos({ ...infos, adresse: e.target.value })} />
-        </label>
-        <label className="text-sm font-bold">Ville
-          <input className={champ} autoComplete="address-level2" value={infos.ville} onChange={(e) => setInfos({ ...infos, ville: e.target.value })} />
-        </label>
-        <label className="text-sm font-bold">N° client ou de contrat <span className="font-normal text-encre-douce">(si tu l’as)</span>
-          <input className={champ} value={infos.reference} onChange={(e) => setInfos({ ...infos, reference: e.target.value })} />
-        </label>
-      </div>
-      <pre className="mt-4 max-h-80 overflow-auto whitespace-pre-wrap rounded-2xl bg-papier px-4 py-4 font-texte text-[0.9rem] leading-relaxed">{texte}</pre>
-      <button
-        type="button"
-        onClick={copier}
-        className="mt-3 flex min-h-14 w-full items-center justify-center rounded-2xl bg-billet px-6 text-lg font-bold text-papier"
-      >
-        {copie ? "Lettre copiée ✓" : "Copier la lettre"}
-      </button>
-      <p className="mt-3 text-sm text-encre-douce">
-        Astuce : beaucoup de services permettent de résilier en ligne depuis ton espace client. Sinon, envoie cette lettre par
-        e-mail au service clients, ou en recommandé avec accusé de réception.
-      </p>
     </div>
   );
 }
