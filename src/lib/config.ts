@@ -42,7 +42,7 @@ export const EMAIL_CONTACT = process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? "fantomes.
 
 /** Informations légales du vendeur (mentions légales, CGV, confidentialité). */
 export const VENDEUR = {
-  nom: "Archange Paurel Nguetia",
+  nom: "Archange Paurel Nguetia Tchoumba",
   activite: "Entrepreneur individuel (Einzelunternehmen)",
   adresse: "Alzeyer Str. 4",
   ville: "67549 Worms",
