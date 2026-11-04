@@ -38,4 +38,4 @@ export const PLANS: Plan[] = ["audit", "annuel", "mensuel"];
 export const GARANTIE_JOURS = 30;
 
 /** Adresse de contact affichée pour la garantie et les questions. À remplacer par l'adresse définitive. */
-export const EMAIL_CONTACT = process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? "[adresse-email-à-définir]";
+export const EMAIL_CONTACT = process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? "fantomes.aide@gmail.com";
