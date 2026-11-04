@@ -48,7 +48,7 @@ export const VENDEUR = {
   ville: "67549 Worms",
   pays: "Allemagne",
   email: EMAIL_CONTACT,
-  telephone: process.env.NEXT_PUBLIC_CONTACT_PHONE ?? null,
+  telephone: process.env.NEXT_PUBLIC_CONTACT_PHONE ?? "+49 1523 1651063",
   tva: "Pas de TVA facturée : petite entreprise au sens du § 19 UStG (Kleinunternehmerregelung).",
   autoriteDonnees: {
     nom: "Der Landesbeauftragte für den Datenschutz und die Informationsfreiheit Rheinland-Pfalz",
