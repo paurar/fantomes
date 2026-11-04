@@ -220,6 +220,12 @@ function Offre({ fantomes }: { fantomes: FantomeDetecte[] }) {
               )}
             </div>
             <p className="mt-3 text-center text-sm text-encre-douce">Paiement sécurisé par Stripe. Fantômes ne voit jamais ta carte.</p>
+            <p className="mt-2 text-center text-xs text-encre-douce">
+              Prix finaux, pas de TVA facturée (§ 19 UStG). En payant, tu acceptes les{" "}
+              <Link href="/cgv" className="underline underline-offset-2">conditions de vente</Link> et la{" "}
+              <Link href="/confidentialite" className="underline underline-offset-2">politique de confidentialité</Link>. Droit de rétractation
+              de 14 jours : voir les <Link href="/cgv#retractation" className="underline underline-offset-2">CGV</Link>.
+            </p>
           </div>
 
           {/* 7. Les quatre vraies objections */}

@@ -39,3 +39,21 @@ export const GARANTIE_JOURS = 30;
 
 /** Adresse de contact affichée pour la garantie et les questions. À remplacer par l'adresse définitive. */
 export const EMAIL_CONTACT = process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? "fantomes.aide@gmail.com";
+
+/** Informations légales du vendeur (mentions légales, CGV, confidentialité). */
+export const VENDEUR = {
+  nom: "Archange Paurel Nguetia",
+  activite: "Entrepreneur individuel (Einzelunternehmen)",
+  adresse: "Alzeyer Str. 4",
+  ville: "67549 Worms",
+  pays: "Allemagne",
+  email: EMAIL_CONTACT,
+  telephone: process.env.NEXT_PUBLIC_CONTACT_PHONE ?? null,
+  tva: "Pas de TVA facturée : petite entreprise au sens du § 19 UStG (Kleinunternehmerregelung).",
+  autoriteDonnees: {
+    nom: "Der Landesbeauftragte für den Datenschutz und die Informationsfreiheit Rheinland-Pfalz",
+    adresse: "Hintere Bleiche 34, 55116 Mainz, Allemagne",
+    site: "https://www.datenschutz.rlp.de",
+  },
+  miseAJour: "5 novembre 2026",
+};
