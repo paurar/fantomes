@@ -26,7 +26,10 @@ const PAR_AN = { hebdomadaire: 52, mensuel: 12, trimestriel: 4, annuel: 1 } as c
 async function utilisateur() {
   const supabase = await clientServeur();
   const { data, error } = await supabase.auth.getUser();
-  if (error || !data.user) throw new Error("SESSION");
+  if (error || !data.user) {
+    console.error("[paiement] Session visiteur introuvable :", error?.message);
+    throw new Error("SESSION");
+  }
   return { supabase, user: data.user };
 }
 
@@ -89,7 +92,9 @@ export async function creerPaiement(planBrut: unknown, auditIdBrut: unknown): Pr
     return_url: `${await origine()}/merci?session_id={CHECKOUT_SESSION_ID}`,
   };
 
-  const session =
+  let session;
+  try {
+  session =
     f.mode === "payment"
       ? await stripe().checkout.sessions.create({
           ...base,
@@ -107,6 +112,12 @@ export async function creerPaiement(planBrut: unknown, auditIdBrut: unknown): Pr
             price_data: { currency: "eur", unit_amount: f.prixCents, recurring: { interval: f.intervalle }, product_data: { name: `Fantômes — ${f.nom}` } },
           }],
         });
+  } catch (e) {
+    // Visible dans Vercel → Logs : aide à comprendre un refus de Stripe
+    const err = e as { type?: string; code?: string; message?: string };
+    console.error("[paiement] Stripe a refusé la création de session :", err.type, err.code, err.message);
+    throw new Error("STRIPE");
+  }
 
   if (!session.client_secret) throw new Error("STRIPE");
   return { clientSecret: session.client_secret };
